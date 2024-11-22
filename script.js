@@ -1,34 +1,42 @@
-const mainContainer = document.querySelector(".main-container");
 const defaultNumberOfSquares = 16;
 
+//CREATE A FUNCTION THAT COLOURS THE SQUARES WHEN HOLDING AND THEN DRAGGING OVER SQUARES AND ALSO DOUBLE CLICK TO ERASE// 
+function applyColor(square) {
+    square.classList.add("black");
+};
 
-function defaultCanvas(defaultNumberOfSquares) {
-    let totalNumberOfSquares = defaultNumberOfSquares * defaultNumberOfSquares;
-    const squareWidthAndHeight = 100 / defaultNumberOfSquares;
+function eraseColor(square) {
+    square.classList.add("erase");
+};
+
+
+
+
+function setCanvas(numberofSquares) {
+    const mainContainer = document.querySelector(".main-container");
+    let totalNumberOfSquares = numberofSquares * numberofSquares;
+    const squareWidthAndHeight = 100 / numberofSquares;
 
     for(let i =0; i < totalNumberOfSquares; i++ ) {
         let square = document.createElement("div");
         square.classList.add("square-hover")
-        square.style.cssText = `width: ${squareWidthAndHeight}%; height: ${squareWidthAndHeight}%; border: solid black;`;
-        square.addEventListener("click", () => { square.style.backgroundColor = "black";});
+        square.style.cssText = `width: ${squareWidthAndHeight}%; height: ${squareWidthAndHeight}%;`;
+
         mainContainer.appendChild(square);
-         };
-    };
 
-function setCanvas() {
-    
-    let numberOfSquares = Number(prompt("Enter the number of squares you would like for thr width and height of your canvas"));
-    let totalNumberOfSquares = numberOfSquares * numberOfSquares;
-    const squareWidthAndHeight = 100 / numberOfSquares;
+        square.addEventListener("click", (e) => {
+            e.preventDefault(); 
+            applyColor(square); 
+        });
 
-    for(let i =0; i < totalNumberOfSquares; i++ ) {
-        let square = document.createElement("div")
-        square.style.cssText = `width: ${squareWidthAndHeight}%; height: ${squareWidthAndHeight};`
-        mainContainer.appendChild(square)
-    
-    }
+        square.addEventListener("dblclick", (e) => {
+            e.preventDefault();
+            eraseColor(square);
+        });
 
-}
+        };
+};
 
-defaultCanvas(defaultNumberOfSquares)
+
+setCanvas(defaultNumberOfSquares)
 
